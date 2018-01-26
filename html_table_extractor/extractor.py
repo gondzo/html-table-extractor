@@ -8,10 +8,11 @@ class Extractor(object):
     def __init__(self, table, id_=None, **kwargs):
         # input is Tag
         if isinstance(table, Tag):
-            self._table = table.find(id=id_)
+            self._table = table.find(id=id_) if id_ else table.find()
         # input is str/unicode
         elif isinstance(table, str) or isinstance(table, unicode):
-            self._table = BeautifulSoup(table, 'html.parser').find(id=id_)
+            self._table = (BeautifulSoup(table, 'html.parser').find(id=id_)
+                if id_ else BeautifulSoup(table, 'html.parser').find())
         else:
             raise Exception('unrecognized type')
 
